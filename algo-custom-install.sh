@@ -1,8 +1,4 @@
 #!/bin/sh
-export WINDOWS=true
-export SSH_TUNNELING=true
-curl -s https://raw.githubusercontent.com/trailofbits/algo/master/install.sh | sudo -E bash -x
-
 sudo -E iptables -t mangle -A FORWARD --match policy --pol ipsec --dir in -s 10.10.10.10/24 -p tcp -m tcp --tcp-flags SYN,RST SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
 sudo -E iptables -t mangle -A FORWARD -m policy --pol ipsec --dir in -p tcp -m tcp --tcp-flags SYN,RST SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
 sudo -E iptables -t mangle -A FORWARD -m policy --pol ipsec --dir out -p tcp -m tcp --tcp-flags SYN,RST SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
