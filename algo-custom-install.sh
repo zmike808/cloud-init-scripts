@@ -2,7 +2,7 @@
 
 set -ex
 
-ENDPOINT="${1:-${ENDPOINT:-localhost}}"
+export ENDPOINT="${1:-${ENDPOINT:-localhost}}"
 ##SERVER_VAR="$1"
 curl -s https://raw.githubusercontent.com/trailofbits/algo/master/install.sh | sudo -E bash -x -s local true false _null true true true true "$ENDPOINT" phone,laptop,desktop
 
