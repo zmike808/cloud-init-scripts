@@ -1,6 +1,10 @@
-#!/bin/sh
-SERVER_VAR="$1"
-curl -s https://raw.githubusercontent.com/trailofbits/algo/master/install.sh | sudo -E bash -x -s local true false _null true true true true $SERVER_VAR phone,laptop,desktop
+#!/usr/bin/env sh
+
+set -ex
+
+ENDPOINT="${1:-${ENDPOINT:-localhost}}"
+##SERVER_VAR="$1"
+curl -s https://raw.githubusercontent.com/trailofbits/algo/master/install.sh | sudo -E bash -x -s local true false _null true true true true "$ENDPOINT" phone,laptop,desktop
 
 iptables -t mangle -A FORWARD --match policy --pol ipsec --dir in -s 10.10.10.10/24 -p tcp -m tcp --tcp-flags SYN,RST SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
 iptables -t mangle -A FORWARD -m policy --pol ipsec --dir in -p tcp -m tcp --tcp-flags SYN,RST SYN -m tcpmss --mss 1361:1536 -j TCPMSS --set-mss 1360
